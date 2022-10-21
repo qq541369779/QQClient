@@ -36,7 +36,7 @@ public class QQView {
                 case "1":
                     System.out.println("请输入用户号：");
                     String userId = Utility.readString(50);
-                    System.out.println("请输入密   码");
+                    System.out.println("请输入密码：");
                     String pwd = Utility.readString(50);
                     // 这里还需要去服务端验证用户是否合法
                     // 这里很多代码，编写一个类 UserClientService[用户登录/注册]

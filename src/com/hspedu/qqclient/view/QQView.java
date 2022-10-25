@@ -57,6 +57,7 @@ public class QQView {
                             switch (key) {
                                 case "1":
                                     System.out.println("显示在线用户列表");
+                                    userClientService.onlineFriendList();
                                     break;
                                 case "2":
                                     System.out.println("群发消息");

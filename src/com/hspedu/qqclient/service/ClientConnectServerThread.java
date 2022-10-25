@@ -34,8 +34,14 @@ public class ClientConnectServerThread extends Thread{
                 // 注意，后面我们需要去使用message
                 // 判断这个message类型，然后做相应的业务处理
                 // 如果读取到的是 服务器返回的在线用户列表
-                if(message.getMesType().equals(MessageType.MESSAGE_GET_ONLINE_FRIEND)){
+                if(message.getMesType().equals(MessageType.MESSAGE_RET_ONLINE_FRIEND)){
                     // 取出在线列表信息，并显示
+                    // 规定
+                    String[] onlineUsers = message.getContent().split(" ");
+                    System.out.println("\n=====当前在线用户列表=====");
+                    for (int i = 0; i < onlineUsers.length; i++) {
+                        System.out.println("用户：" + onlineUsers[i]);
+                    }
                 }
 
             } catch (Exception e) {

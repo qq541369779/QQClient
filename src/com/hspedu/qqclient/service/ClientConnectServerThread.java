@@ -1,6 +1,7 @@
 package com.hspedu.qqclient.service;
 
 import com.hspedu.qqcommon.Message;
+import com.hspedu.qqcommon.MessageType;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -30,6 +31,12 @@ public class ClientConnectServerThread extends Thread{
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                 // 如果服务器没有发送Message对象，线程会阻塞在这里
                 Message message = (Message) ois.readObject();
+                // 注意，后面我们需要去使用message
+                // 判断这个message类型，然后做相应的业务处理
+                // 如果读取到的是 服务器返回的在线用户列表
+                if(message.getMesType().equals(MessageType.MESSAGE_GET_ONLINE_FRIEND)){
+                    // 取出在线列表信息，并显示
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();

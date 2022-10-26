@@ -12,19 +12,19 @@ import java.net.Socket;
  * @Author Ace
  * @create 2022/10/11 16:52
  */
-public class ClientConnectServerThread extends Thread{
+public class ClientConnectServerThread extends Thread {
     // 该线程需要持有Socket
     private Socket socket;
 
     // 构造器可以接受一个Socket对象
-    public ClientConnectServerThread(Socket socket){
+    public ClientConnectServerThread(Socket socket) {
         this.socket = socket;
     }
 
     @Override
     public void run() {
         // 因为Thread需要在后台和服务器同学，因为我们while循环
-        while (true){
+        while (true) {
 
             try {
                 System.out.println("客户端线程，等待读取从服务器端发送的消息");
@@ -34,7 +34,7 @@ public class ClientConnectServerThread extends Thread{
                 // 注意，后面我们需要去使用message
                 // 判断这个message类型，然后做相应的业务处理
                 // 如果读取到的是 服务器返回的在线用户列表
-                if(message.getMesType().equals(MessageType.MESSAGE_RET_ONLINE_FRIEND)){
+                if (message.getMesType().equals(MessageType.MESSAGE_RET_ONLINE_FRIEND)) {
                     // 取出在线列表信息，并显示
                     // 规定
                     String[] onlineUsers = message.getContent().split(" ");
@@ -42,6 +42,17 @@ public class ClientConnectServerThread extends Thread{
                     for (int i = 0; i < onlineUsers.length; i++) {
                         System.out.println("用户：" + onlineUsers[i]);
                     }
+                } else if (message.getMesType().equals(MessageType.MESSAGE_COMM_MES)) { // 普通的聊天消息
+                    // 把服务器转发的消息，显示到控制台显示即可
+                    System.out.println("\n" + message.getSender() + "对" + message.getGetter() + "说" +
+                            message.getContent());
+
+                } else if (message.getMesType().equals(MessageType.MESSAGE_TO_ALL_MES)) {
+                    // 显示在客户端的控制台
+                    System.out.println("\n" + message.getSender() + "对大家说" + message.getContent());
+
+                } else {
+                    System.out.println("其他类型的message，暂时不处理");
                 }
 
             } catch (Exception e) {
